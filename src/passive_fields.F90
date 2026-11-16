@@ -37,7 +37,8 @@ contains
 
   subroutine initialise_passive_fields(kl_arg, ku_arg)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -46,14 +47,12 @@ contains
 
     integer, intent(in) :: kl_arg, ku_arg
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
     kl=kl_arg
@@ -73,7 +72,7 @@ contains
     allocate(TdegC(nz, nxy_inner))
     allocate(min_dz(nxy_inner))
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end subroutine initialise_passive_fields
 
@@ -81,7 +80,8 @@ contains
                                 dt_in, rho_in, p_in, exner_in,   &
                                 dz_in, w_in, tke_in, qfields)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -99,14 +99,12 @@ contains
     real(wp), intent(in), target :: qfields(:,:,:)
     integer :: k, ixy_inner, ixy, jy, ix
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_2
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     dt=dt_in
 
@@ -146,7 +144,7 @@ contains
     end do ! ixy_inner
     !nullify(theta)
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
 
   end subroutine set_passive_fields
 end module passive_fields

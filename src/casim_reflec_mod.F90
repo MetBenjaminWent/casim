@@ -55,7 +55,8 @@ SUBROUTINE setup_reflec_constants()
 USE mphys_parameters, ONLY: cloud_params, rain_params, graupel_params
 
 ! Dr Hook Modules
-USE yomhook,          ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
 USE parkind1,         ONLY: jprb, jpim
 
 IMPLICIT NONE
@@ -63,13 +64,11 @@ IMPLICIT NONE
 REAL(wp), PARAMETER :: s_ice_density = 900.0 ! [kg m-3]
 
 ! Declarations for Dr Hook:
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 CHARACTER(LEN=*), PARAMETER :: RoutineName='SETUP_REFLEC_CONSTANTS'
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 kclw   = kliq / 0.93 * (6.0 / pi / cloud_params%density)**2
 krain  = kliq / 0.93 * (6.0 / pi / rain_params%density)**2
@@ -77,7 +76,7 @@ kgraup = kice / 0.93 * (6.0 / pi / graupel_params%density)**2
 kice_a = kice / 0.93 * (6.0 / pi / s_ice_density)**2
 kice_c = kice / 0.93 * (6.0 / pi / s_ice_density)**2
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE setup_reflec_constants
 
@@ -107,7 +106,8 @@ USE distributions,        ONLY: query_distributions, dist_lambda, dist_mu, dist_
 
 
 ! Dr Hook Modules
-USE yomhook,              ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
 USE parkind1,             ONLY: jprb, jpim
 
 IMPLICIT NONE
@@ -160,15 +160,13 @@ REAL(wp) :: ze_tot(points) ! Total linear reflectivity [mm6 m-3]
 REAL(wp) :: arg3, arg2     ! arguments for gamma-function
 
 ! Declarations for Dr Hook:
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_2
 
 CHARACTER(LEN=*), PARAMETER :: RoutineName='CASIM_REFLEC'
 
 !==============================================================================
 ! Start of calculations
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
 ! Apply RP scheme
 IF ( l_rp2_casim ) THEN
@@ -295,7 +293,7 @@ DO i = 1,points
 
 END DO
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
 RETURN
 END SUBROUTINE casim_reflec
 END MODULE casim_reflec_mod

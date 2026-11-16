@@ -34,7 +34,8 @@ contains
   ! to provide appropriate accuracy for any values required.
   subroutine set_gammalookup(xmin, xmax, dx)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -50,14 +51,12 @@ contains
     integer :: nargs
     integer :: i
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     gammalookup_xmin=xmin
     gammalookup_xmax=xmax
@@ -74,13 +73,14 @@ contains
       arg=arg+dx
     end do
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end subroutine set_gammalookup
 
   function gammalookup(x)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -93,14 +93,12 @@ contains
     real(wp) :: xmin=1e-12, xmax=100.0, dx=.0001
     integer :: i_minus
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_2
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     if (.not. l_gammalookup_set) then
       call set_gammalookup(xmin, xmax, dx)
@@ -110,7 +108,7 @@ contains
     i_minus=int((x - gammalookup_xmin)/gammalookup_dx)+1
     gammalookup=0.5*(gammalookup_val(i_minus)+gammalookup_val(i_minus+1))
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
 
   end function gammalookup
 
@@ -119,7 +117,8 @@ contains
   !================!
   function gammafunc1(x)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -131,14 +130,12 @@ contains
 
     real(wp) :: f,g,z
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_3
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     f=huge(x)
     g=1
@@ -158,13 +155,14 @@ contains
     end if
     gammafunc1=f
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
 
   end function gammafunc1
 
   function erfg(x,c)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -177,14 +175,12 @@ contains
     real(wp) :: erfg, f, z
     integer :: j, cc
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_4
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
     z=x
     cc=c
@@ -214,13 +210,14 @@ contains
     f=f*((1-c)*abs(z)/z +c)
     erfg=f
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
 
   end function erfg
 
   function casim_erfc(x)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -231,18 +228,16 @@ contains
     integer, parameter :: c=1
     real(wp) :: casim_erfc
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_5
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
 
     casim_erfc=erfg(x,c)
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
 
   end function casim_erfc
 
@@ -251,7 +246,8 @@ contains
   ! This needs more work to get good accuracy
   function erfinv1(x)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -261,20 +257,18 @@ contains
     real(wp), intent(in) :: x
     real(wp) :: erfinv1
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_6
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
 
     erfinv1=.5*sqrt(pi)*(x+pi/12.0*x*x*x+7.0/480.0*pi*pi*x**5 &
          +127.0/40320*pi**3*x**7+4369.0/5806080*pi**4*x**9 &
          +34807.0/182476800.0*pi**5*x**11)
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_6)
 
   end function erfinv1
 
@@ -283,7 +277,8 @@ contains
   ! Alternative version solves equation
   function erfinv2(x)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -295,14 +290,12 @@ contains
 
     real(wp) :: work, work_old, diff, erfx, erfx_old
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_7
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_7, ModuleName//':'//RoutineName)
 
     diff=9999.0
     work_old=.2
@@ -317,7 +310,7 @@ contains
 
     erfinv2=work
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_7)
 
   end function erfinv2
 
@@ -326,7 +319,8 @@ contains
   ! Alternative version solves equation
   function erfinv3(x, tol)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -339,14 +333,12 @@ contains
 
     real(wp) :: work, diff, erfx, derfx, tolval
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_8
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_8, ModuleName//':'//RoutineName)
 
     tolval=1e-3
     if (present(tol)) tolval=tol
@@ -371,7 +363,7 @@ contains
     end if
     erfinv3=work
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_8)
 
   end function erfinv3
 

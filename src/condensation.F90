@@ -42,7 +42,8 @@ contains
 
   subroutine condevp_initialise()
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -50,27 +51,26 @@ contains
     ! Local variables
     character(len=*), parameter :: RoutineName='CONDEVP_INITIALISE'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     allocate(dnccn_all(aero_index%nccn))
     allocate(dmac_all(aero_index%nccn))
     allocate(dnccnd_all(aero_index%nin))
     allocate(dmad_all(aero_index%nin))
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end subroutine condevp_initialise  
 
   subroutine condevp_finalise()
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -78,28 +78,27 @@ contains
     ! Local variables
     character(len=*), parameter :: RoutineName='CONDEVP_FINALISE'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_2
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     deallocate(dnccn_all)
     deallocate(dmac_all)
     deallocate(dnccnd_all)
     deallocate(dmad_all)
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
 
   end subroutine condevp_finalise  
 
   subroutine condevp(ixy_inner, dt, nz, qfields, procs, aerophys, aerochem,   &
        aeroact, dustphys, dustchem, dustliq, aerosol_procs, rhcrit_lev)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -150,14 +149,12 @@ contains
 
     character(len=*), parameter :: RoutineName='CONDEVP'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_3
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
     
     tau=dt ! adjust instantaneously
 
@@ -396,7 +393,7 @@ contains
        end if
      end if 
    enddo
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
 
   end subroutine condevp
 end module condensation

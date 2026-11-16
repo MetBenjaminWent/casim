@@ -29,7 +29,8 @@ USE, INTRINSIC :: ISO_C_BINDING, ONLY:                   &
 ! value across CASIM.
 
 ! Dr Hook modules
-USE yomhook,          ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
 USE parkind1,         ONLY: jprb, jpim
 
 USE vectlib_mod,      ONLY: powr_v, oneover_v, exp_v
@@ -176,16 +177,14 @@ REAL, PARAMETER :: smallnum = 2.2e-14
                         ! Small value used in if tests
 LOGICAL :: l_psd_global
 
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 CHARACTER(LEN=*), PARAMETER :: RoutineName='CASIM_MOMENTS'
 
 
 ! Start the subroutine
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 one_over_ai = 1.0 / params%c_x
 bi = params%d_x
 
@@ -346,7 +345,7 @@ ELSE
 END IF  ! l_psd_global
 
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 RETURN
 END SUBROUTINE casim_moments
 !#endif

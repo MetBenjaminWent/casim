@@ -40,7 +40,8 @@ contains
 
   subroutine calc_nccn(smax, nccn, nccni_dg)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -55,14 +56,12 @@ contains
 
     character(len=*), parameter :: RoutineName='CALC_NCCN'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     nccn=0.0
     do i=1,nmodes
@@ -75,14 +74,15 @@ contains
       end if
     end do
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end subroutine calc_nccn
 
 
   subroutine calc_LHS(w, T, pressure, alpha_c, entrain_fraction, LHSout)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -107,14 +107,12 @@ contains
 
     character(len=*), parameter :: RoutineName='CALC_LHS'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_2
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     Tc = T-273.15
 
@@ -139,13 +137,14 @@ contains
 
     LHSout=LHS
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
 
   end subroutine calc_LHS
 
   subroutine set_inputs(s,sp,sm,ds)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -160,14 +159,12 @@ contains
 
     character(len=*), parameter :: RoutineName='SET_INPUTS'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_3
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     ds=min(0.001, .5*abs(s))
     sp = s + ds
@@ -213,14 +210,15 @@ contains
       end do
     end do
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
 
   end subroutine set_inputs
 
 
   subroutine set_inputs_safe(sp,sm)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -233,14 +231,12 @@ contains
 
     character(len=*), parameter :: RoutineName='SET_INPUTS_SAFE'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_4
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
 
     sm=0.0
@@ -253,13 +249,14 @@ contains
       end if
     end do
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
 
   end subroutine set_inputs_safe
 
   subroutine get_extent(s, sp, sm)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -274,14 +271,12 @@ contains
 
     character(len=*), parameter :: RoutineName='GET_EXTENT'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_5
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
 
     sm=0.0
     sp=HUGE(sp)
@@ -292,13 +287,14 @@ contains
       end if
     end do
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
 
   end subroutine get_extent
 
   subroutine calc_RHS(s,RHS)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -315,14 +311,12 @@ contains
 
     character(len=*), parameter :: RoutineName='CALC_RHS'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_6
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
 
     RHS=0.0
     do i=1,nmodes
@@ -343,13 +337,14 @@ contains
       end if
     end do
 
-   IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_6)
 
   end subroutine calc_RHS
 
   subroutine calc_KC(T)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -360,14 +355,12 @@ contains
 
     character(len=*), parameter :: RoutineName='CALC_KC'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_7
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_7, ModuleName//':'//RoutineName)
 
     Ak = 2.*Mw*zetasa/(Ru*T*rhow)
 
@@ -382,7 +375,7 @@ contains
      end if
     end do
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_7)
 
   end subroutine calc_KC
 
@@ -390,7 +383,8 @@ contains
      w,T,pressure,alpha_c,ent_fraction,               &
      smax,nccn,nccni)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -413,17 +407,15 @@ contains
     real(wp) :: tolx=1e-6, toly ! This tolerence only necessary for very high numbers
     character(len=*), parameter :: RoutineName='SOLVE_NCCN_HOUSEHOLD'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_8
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_8, ModuleName//':'//RoutineName)
 
     if (.not. any(use_mode)) then
-      IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+      IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_8)
       return  ! If there's no aerosol present in any of the modes
     end if
 
@@ -474,7 +466,7 @@ contains
 
     call calc_nccn(smax, nccn, nccni)
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_8)
 
     end subroutine solve_nccn_household
 
@@ -482,7 +474,8 @@ contains
      w,T,pressure,alpha_c,ent_fraction,               &
      smax,nccn,nccni)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -507,17 +500,15 @@ contains
 
     character(len=*), parameter :: RoutineName='SOLVE_NCCN_BRENT'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_9
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_9, ModuleName//':'//RoutineName)
 
     if (.not. any(use_mode)) then
-      IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+      IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_9)
       return  ! If there's no aerosol present in any of the modes
     end if
 
@@ -597,13 +588,14 @@ contains
     est_smax_time=1.0/((psi1*w*C1/C2)/smax)
     call calc_nccn(smax, nccn, nccni)
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_9)
 
   end subroutine solve_nccn_brent
 
   function smax_eq(sa)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -615,20 +607,18 @@ contains
 
     character(len=*), parameter :: RoutineName='SMAX_EQ'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_10
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_10, ModuleName//':'//RoutineName)
 
     call calc_RHS(sa,RHSout)
 
     smax_eq = RHSout - LHS_hold
 
-   IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_10)
 
   end function smax_eq
 
@@ -636,7 +626,8 @@ contains
   subroutine brent(f, a, b, x, iflag, ibrent, tolx, tolf, verbose, &
      iquad, isecant, imidpoint)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -663,14 +654,12 @@ contains
 
     character(len=*), parameter :: RoutineName='BRENT'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_11
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_11, ModuleName//':'//RoutineName)
 
     iflag=-999
     ibrent=0
@@ -693,21 +682,21 @@ contains
     if (fa == 0)then
        x=a
        iflag=0
-       IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+       IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
        return
     end if
 
     if (fb == 0)then
        x=b
        iflag=0
-       IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+       IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
        return
     end if
 
     if ( fa*fb > 0 )then
        x=-999
        iflag=-1
-       IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+       IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
        return
     end if
 
@@ -806,7 +795,7 @@ contains
     end if
 
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
     return
   end subroutine brent
 

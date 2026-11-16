@@ -21,7 +21,8 @@ contains
   ! but sp1,sp2,sp3 etc need not be the same
   subroutine set_constants()
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -29,14 +30,12 @@ contains
     ! Local variables
     character(len=*), parameter :: RoutineName='SET_CONSTANTS'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     if (l_abelshipway) then ! override any other fallspeed settings
 
@@ -59,7 +58,7 @@ contains
     nucleated_ice_radius = 10.0e-6
     nucleated_ice_mass   =  4.0/3.0*pi*ice_params%density*(nucleated_ice_radius)**3
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end subroutine set_constants
 end module derived_constants

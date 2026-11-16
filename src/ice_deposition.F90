@@ -38,7 +38,8 @@ contains
   !< when undergoing deposition, but there is a sink when sublimating.
   subroutine idep(ixy_inner, dt, nz, l_Tcold, params, qfields, cffields, procs, dustact, aeroice, aerosol_procs)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     USE mphys_switches,       ONLY: i_cfi, i_cfs, i_cfg
@@ -85,14 +86,12 @@ contains
 
     character(len=*), parameter :: RoutineName='IDEP'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     do k = 1, nz
       if (l_Tcold(k)) then
@@ -261,7 +260,7 @@ contains
       end if
     enddo
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end subroutine idep
 end module ice_deposition

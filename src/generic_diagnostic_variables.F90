@@ -555,7 +555,8 @@ CONTAINS
 
 SUBROUTINE allocate_diagnostic_space(i_start, i_end, j_start, j_end, k_start, k_end)
 
-USE yomhook,          ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
 USE parkind1,         ONLY: jprb, jpim
 USE mphys_parameters, ONLY: zero_real_wp
 
@@ -573,14 +574,12 @@ INTEGER, INTENT(IN) :: k_end ! End of k array
 CHARACTER(LEN=*), PARAMETER :: RoutineName='ALLOCATE_DIAGNOSTIC_SPACE'
 INTEGER :: k
 
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 !--------------------------------------------------------------------------
 ! End of header, no more declarations beyond here
 !--------------------------------------------------------------------------
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 IF ( casdiags % l_precip) THEN
 
@@ -1923,13 +1922,14 @@ END IF
 
 
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE allocate_diagnostic_space
 
 SUBROUTINE deallocate_diagnostic_space()
 
-USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
 USE parkind1, ONLY: jprb, jpim
 
 IMPLICIT NONE
@@ -1937,14 +1937,12 @@ IMPLICIT NONE
 ! Local variables
 CHARACTER(LEN=*), PARAMETER :: RoutineName='DEALLOCATE_DIAGNOSTIC_SPACE'
 
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_2
 
 !--------------------------------------------------------------------------
 ! End of header, no more declarations beyond here
 !--------------------------------------------------------------------------
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
 ! Remember to deallocate all memory in the reverse order that it was
 ! allocated.
@@ -2679,7 +2677,7 @@ casdiags % l_tendency_dg   = .FALSE.
 casdiags % l_radar         = .FALSE.
 casdiags % l_hail          = .FALSE.
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
 
 END SUBROUTINE deallocate_diagnostic_space
 

@@ -28,7 +28,8 @@ contains
   subroutine inuc(ixy_inner, dt, nz, l_Tcold, qfields, cffields, procs, dustphys, aeroact, dustliq, &
        aerosol_procs)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -90,14 +91,12 @@ contains
     character(len=*), parameter :: RoutineName='INUC'
 
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
     
     do k = 1, nz
       if (l_Tcold(k)) then
@@ -409,7 +408,7 @@ contains
        end if ! l_Tcold
     enddo  ! k loop
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end subroutine inuc
 end module ice_nucleation

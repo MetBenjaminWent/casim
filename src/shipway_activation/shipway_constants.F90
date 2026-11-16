@@ -39,7 +39,8 @@ contains
 
   real(wp) function Dv_mean(T, alpha_c)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -54,14 +55,12 @@ contains
 
     character(len=*), parameter :: RoutineName='DV_MEAN'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     Dp_big=5.e-6
     Dp_low=min(0.207683*alpha_c**(-0.33048)*1e-6,Dp_big-1e-15)
@@ -70,7 +69,7 @@ contains
     B=(2.*Dv/alpha_c)*sqrt(2*pi*Mw/(Ru*T))
     Dv_mean=Dv*(delDp-B*log((Dp_big+B)/(Dp_low+B)))/delDp
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end function Dv_mean
        

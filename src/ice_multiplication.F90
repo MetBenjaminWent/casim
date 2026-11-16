@@ -45,7 +45,8 @@ contains
   !> OPTIMISATION POSSIBILITIES:
   subroutine hallet_mossop(ixy_inner, dt, nz, cffields, procs)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -70,14 +71,12 @@ contains
 
     character(len=*), parameter :: RoutineName='HALLET_MOSSOP'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     ! Apply RP scheme
     if ( l_rp2_casim ) then
@@ -85,7 +84,7 @@ contains
     endif
 
     if (.not. ice_params%l_2m) then
-      IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+      IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
       return
     end if
     
@@ -173,7 +172,7 @@ contains
        end if
     enddo
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
   end subroutine hallet_mossop
 
@@ -182,7 +181,8 @@ contains
 !--------------------------------------------------------------------------------
   subroutine droplet_shattering(ixy_inner, dt, nz, cffields, qfields, procs)
 
-   USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
    USE parkind1, ONLY: jprb, jpim
 
    implicit none
@@ -208,17 +208,15 @@ contains
 
    character(len=*), parameter :: RoutineName='DROPLET_SHATTERING'
 
-   INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-   INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-   REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_2
 
    !--------------------------------------------------------------------------
    ! End of header, no more declarations beyond here
    !--------------------------------------------------------------------------
-   IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+   IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
    if (.not. ice_params%l_2m) then
-     IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+     IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
      return
    end if
    
@@ -286,7 +284,7 @@ contains
       end if
    enddo
 
-   IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
 
  end subroutine droplet_shattering
 
@@ -295,7 +293,8 @@ contains
 
  subroutine ice_collision(ixy_inner, dt, nz, cffields, procs)
 
-    USE yomhook, ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -319,17 +318,15 @@ contains
 
     character(len=*), parameter :: RoutineName='ICE_COLLISION'
 
-    INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-    INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-    REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_3
 
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     if (.not. ice_params%l_2m) then
-      IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+      IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
       return
     end if
     
@@ -397,7 +394,7 @@ contains
        end if
     enddo
 
-    IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
 
   end subroutine ice_collision
 

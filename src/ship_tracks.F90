@@ -38,7 +38,8 @@ SUBROUTINE include_ship_source(i_start, i_end, j_start, j_end, k_start, k_end, t
                                true_latitude, true_longitude,    &
                                dAccumSolMass, dAccumSolNumber )
 
-USE yomhook,          ONLY: lhook, dr_hook
+USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
+USE vernier_timing_mod, ONLY: LPROF_CASIM
 USE parkind1,         ONLY: jprb, jpim
 USE mphys_constants,  ONLY: pi
 
@@ -62,9 +63,7 @@ REAL, INTENT(INOUT) :: dAccumSolNumber(k_start:k_end, i_start:i_end, j_start:j_e
 
 CHARACTER(LEN=*), PARAMETER :: RoutineName='INCLUDE_SHIP_SOURCE'
 
-INTEGER(KIND=jpim), PARAMETER :: zhook_in  = 0
-INTEGER(KIND=jpim), PARAMETER :: zhook_out = 1
-REAL(KIND=jprb)               :: zhook_handle
+INTEGER(KIND=vik) :: vnr_handle_1
 
 
 REAL :: dttime, rspeed, theta, true_lat, true_lon
@@ -80,7 +79,7 @@ REAL :: dlat, dlon, dr3, boxsize, rrho
 !--------------------------------------------------------------------------
 ! End of header, no more declarations beyond here
 !--------------------------------------------------------------------------
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_in,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 dttime = timestep * timestep_number
 
@@ -151,7 +150,7 @@ DO iship = 1, nships
 END DO ! iship
 
 
-IF (lhook) CALL dr_hook(ModuleName//':'//RoutineName,zhook_out,zhook_handle)
+IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE include_ship_source
 
