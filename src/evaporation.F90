@@ -29,7 +29,7 @@ contains
   subroutine revp(ixy_inner, dt, nz, qfields, cffields, aerophys, aerochem, aeroact, dustliq, procs, aerosol_procs, l_sigevap)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     USE mphys_switches,       ONLY: i_cfr
@@ -75,7 +75,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
     
     do k = 1, nz
        
@@ -219,7 +219,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
        end if
     enddo
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine revp
 end module evaporation

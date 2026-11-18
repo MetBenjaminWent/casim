@@ -16,7 +16,7 @@ contains
   function sweepout(n0, lam, mu, params, rho, mass_weight)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -41,7 +41,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     arg3=3.0+params%b_x+mu
     coef=1.0
@@ -57,7 +57,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     sweepout=coef*(pi*n0*params%a_x/4.0)*G3_b_mu/G1_mu* (1.0 + params%f_x/lam)**(-arg3)&
          *lam**(1 + mu - arg3)* (rho0/rho)**(params%g_x)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end function sweepout
 
@@ -66,7 +66,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
   function sweepout_1M2M(n0, lam, params, rho, mass_weight)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -91,7 +91,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     arg3=3.0+params%b_x+params%fix_mu
     G3_b_mu=params%gam_3_bx_mu
@@ -110,7 +110,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     sweepout_1M2M=coef*(pi*n0*params%a_x/4.0)*G3_b_mu/G1_mu* (1.0 + params%f_x/lam)**(-arg3)&
          *lam**(1 + params%fix_mu - arg3)* (rho0/rho)**(params%g_x)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end function sweepout_1M2M
 
@@ -120,7 +120,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
        params_X, params_Y, rho, mass_weight)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -165,7 +165,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     arg1_X=1.0+mu_X
     arg2_X=2.0+mu_X
@@ -210,7 +210,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
 
     binary_collection=coef*0.25*pi*n0_X*n0_Y*delV*(l_X3*l_Y1*G1_Y*G3_X+2.0*l_X2*l_Y2*G2_Y*G2_X+l_X1*l_Y3*G3_Y*G1_X)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end function binary_collection
 
@@ -218,7 +218,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
        params_X, params_Y, rho, mass_weight)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -264,7 +264,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
     mu_X=params_X%fix_mu
     mu_Y=params_Y%fix_mu
@@ -317,7 +317,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
 
     binary_collection_1M2M=coef*0.25*pi*n0_X*n0_Y*delV*(l_X3*l_Y1*G1_Y*G3_X+2.0*l_X2*l_Y2*G2_Y*G2_X+l_X1*l_Y3*G3_Y*G1_X)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
   end function binary_collection_1M2M
 

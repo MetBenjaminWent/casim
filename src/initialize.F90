@@ -26,7 +26,7 @@ contains
 
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -60,7 +60,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 !$OMP SINGLE
 
@@ -107,14 +107,14 @@ INTEGER(KIND=vik) :: vnr_handle_1
     call gamma_initialize()
 !$OMP END SINGLE
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine mphys_init
 
   subroutine mphys_finalise()
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -127,19 +127,19 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     call finalise_sedr()
     call finalise_micromain()
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end subroutine mphys_finalise
 
   subroutine initialise_lookup_tables()
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -152,7 +152,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     !------------------------------------------------------
     ! Look up tables... (These need to be extended)
@@ -166,7 +166,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     allocate(mu_g_sed(nmu))
     call set_mu_lookup(sp1, sp2, sp3, mu_i_sed, mu_g_sed)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine initialise_lookup_tables
 
@@ -174,7 +174,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
   subroutine check_options()
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -187,7 +187,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
     if (.not. l_override_checks) then
       if (l_warm .and. l_process) then
@@ -278,7 +278,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
       end if
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
   end subroutine check_options
   
@@ -293,7 +293,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     use special, only: Gammafunc
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -305,7 +305,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
 
     ! moment gamma functions
 
@@ -519,7 +519,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_5)
     
   end subroutine gamma_initialize
 

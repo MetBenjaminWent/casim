@@ -38,7 +38,7 @@ contains
     ! term is restored after the interpolation is done in lookup_I  
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -56,7 +56,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
     if (present(filename))then
@@ -107,14 +107,14 @@ INTEGER(KIND=vik) :: vnr_handle_1
 
     l_generate_tables=.false.
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine generate_tables
 
   real(wp) function J1_integrand(t)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -133,7 +133,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     x=x_param
     y=y_param
@@ -150,7 +150,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     J1_integrand = x*sqrt(x*x-t*t)/t*exp(expnt) &
        /sqrt(((x**3-t**3)/x**3)**0.6)/sqrt(0.5)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
 
   end function J1_integrand
@@ -158,7 +158,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
   real(wp) function J1(x, y, nterms)
     
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -172,21 +172,21 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     x_param=x
     y_param=y
     
     J1 = simpson(J1_integrand, tol, x - tol, nterms)
 
-   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+   IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end function J1
 
   subroutine lookup_I(x,y,J1)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -207,7 +207,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
 
     if (l_generate_tables)then
@@ -233,7 +233,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
        + J_table(ix,iy+1)*dx2*dy1 &
        + J_table(ix+1,iy+1)*dx1*dy1)
 
-   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+   IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
   end subroutine lookup_I
 
@@ -241,7 +241,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
   function simpson(f,a,b,N)
     
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -262,7 +262,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
     
     s=0
     
@@ -279,7 +279,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     
     simpson=h*s/3.
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_5)
 
   end function simpson
 

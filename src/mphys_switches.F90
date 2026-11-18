@@ -534,7 +534,7 @@ contains
   subroutine set_mphys_switches(in_option, in_aerosol_option)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     use casim_parent_mod, only: casim_parent, parent_um
@@ -554,7 +554,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     if (.not. mphys_is_set) then
 
@@ -1037,7 +1037,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
       mphys_is_set=.true.
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine set_mphys_switches
 
@@ -1045,7 +1045,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
   subroutine allocq(i, iq, names, p_name)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1062,20 +1062,20 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     i=iq+1
     iq=i
     names(iq)=adjustr(trim(p_name))
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end subroutine allocq
 
   subroutine allocp(proc, iproc, idgproc, p_name, l_onoff)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1092,7 +1092,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     iproc=iproc+1
     idgproc=idgproc+1
@@ -1105,7 +1105,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
       proc%on=.true.
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine allocp
 
@@ -1116,7 +1116,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
   subroutine alloca(i, iq, names, p_name, aero_index, i_ccn, i_in)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1138,7 +1138,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
     is_ccn=0
     is_in=0
@@ -1175,7 +1175,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
       aero_index%nin=nin
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
   end subroutine alloca
 
@@ -1184,7 +1184,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
   subroutine derive_logicals()
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1196,7 +1196,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
 
     if (l_kfsm) then
       ! Kalli's single moment scheme in use, so we need to switch off
@@ -1373,7 +1373,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     if (.not. (pswitch%l_praut .or. pswitch%l_pracw)) l_pos5=.false.
     if (.not. (pswitch%l_prevp)) l_pos6=.false.
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_5)
 
   end subroutine derive_logicals
 end module mphys_switches

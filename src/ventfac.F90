@@ -21,7 +21,7 @@ contains
   subroutine ventilation_3M(ixy_inner, k, V, n0, lam, mu, params)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -43,7 +43,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     a_x=params%a_x
     b_x=params%b_x
@@ -64,14 +64,14 @@ INTEGER(KIND=vik) :: vnr_handle_1
     ! for computational efficiency/accuracy changed from...
     ![' ']    !*(lam + 0.5*f_x)**(-(0.5*b_x + mu + 2.5))*lam**(1.+mu)) &
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine ventilation_3M
 
   subroutine ventilation_1M_2M(ixy_inner, k, V, n0, lam, mu, params)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -93,7 +93,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     a_x=params%a_x
     b_x=params%b_x
@@ -113,7 +113,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     ! for computational efficiency/accuracy changed from...
     ![' ']    !*(lam + 0.5*f_x)**(-(0.5*b_x + mu + 2.5))*lam**(1.+mu)) &
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end subroutine ventilation_1M_2M
 end module ventfac

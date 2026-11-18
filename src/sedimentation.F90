@@ -44,7 +44,7 @@ contains
   subroutine initialise_sedr()
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -57,18 +57,18 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     allocate(flux_n1(nz), flux_n2(nz), flux_n3(nz), Grho(nz))
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine initialise_sedr
 
   subroutine finalise_sedr()
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -80,11 +80,11 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     deallocate(flux_n1, flux_n2, flux_n3, Grho)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end subroutine finalise_sedr
 
@@ -92,7 +92,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
        params, procs, aerosol_procs, precip1d, l_doaerosol)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -139,7 +139,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     l_da_local=.false.
     if (present(l_doaerosol)) l_da_local=l_doaerosol
@@ -520,7 +520,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
       !if (params%l_3m) procs(params%i_3m, iproc%id)%column_data(k)=dm3
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine sedr
 
@@ -534,7 +534,7 @@ subroutine sedr_1M_2M(ixy_inner, step_length, qfields, aeroact, dustact,   &
 
 ! UM dummy routines
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
 USE parkind1, ONLY: jprb, jpim
 USE um_types, ONLY: real_lsprec
 
@@ -598,7 +598,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
 !--------------------------------------------------------------------------
 ! End of header, no more declarations beyond here
 !--------------------------------------------------------------------------
-IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
 if (present(l_doaerosol)) then
   l_da_local=l_doaerosol
@@ -1118,7 +1118,7 @@ do k=nz-1, 1, -1
 
 end do
 
-IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
 end subroutine sedr_1M_2M
 

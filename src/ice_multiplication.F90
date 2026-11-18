@@ -46,7 +46,7 @@ contains
   subroutine hallet_mossop(ixy_inner, dt, nz, cffields, procs)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -76,7 +76,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     ! Apply RP scheme
     if ( l_rp2_casim ) then
@@ -84,7 +84,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     endif
 
     if (.not. ice_params%l_2m) then
-      IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+      IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
       return
     end if
     
@@ -172,7 +172,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
        end if
     enddo
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine hallet_mossop
 
@@ -182,7 +182,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
   subroutine droplet_shattering(ixy_inner, dt, nz, cffields, qfields, procs)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
    USE parkind1, ONLY: jprb, jpim
 
    implicit none
@@ -213,10 +213,10 @@ INTEGER(KIND=vik) :: vnr_handle_2
    !--------------------------------------------------------------------------
    ! End of header, no more declarations beyond here
    !--------------------------------------------------------------------------
-   IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+   IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
    if (.not. ice_params%l_2m) then
-     IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+     IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
      return
    end if
    
@@ -284,7 +284,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
       end if
    enddo
 
-   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+   IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
  end subroutine droplet_shattering
 
@@ -294,7 +294,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
  subroutine ice_collision(ixy_inner, dt, nz, cffields, procs)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -323,10 +323,10 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     if (.not. ice_params%l_2m) then
-      IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+      IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
       return
     end if
     
@@ -394,7 +394,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
        end if
     enddo
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine ice_collision
 

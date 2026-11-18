@@ -88,7 +88,7 @@ contains
   subroutine allocate_procs(nxy_inner, procs, nz, nprocs, ntotalq)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -108,7 +108,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     do ixy=1, nxy_inner
      do iproc=1, nprocs
@@ -124,14 +124,14 @@ INTEGER(KIND=vik) :: vnr_handle_1
 
     !  call zero_procs(procs)
 
-     IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+     IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
    end subroutine allocate_procs
 
   subroutine zero_procs(procs, iprocs)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -149,7 +149,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     lb1=lbound(procs,1)
     ub1=ubound(procs,1)
@@ -171,7 +171,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
           end do
        end do
     endif
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end subroutine zero_procs
  
@@ -179,7 +179,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
   subroutine deallocate_procs(nxy_inner, procs)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -196,7 +196,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     do ixy=1, nxy_inner
     do iproc=lbound(procs,2), ubound(procs,2)
@@ -206,7 +206,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
       end do
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine deallocate_procs
 end module process_routines

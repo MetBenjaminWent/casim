@@ -33,7 +33,7 @@ contains
   subroutine allocate_aerosol(aerophys, aerochem, nmodes, initphys, initchem)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -56,7 +56,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     !------------------------
     ! First allocate aerophys
@@ -87,7 +87,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
       if (present(initphys)) aerochem(k)=initchem
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine allocate_aerosol
 
@@ -97,7 +97,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
   subroutine deallocate_aerosol(aerophys, aerochem)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -118,7 +118,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     !------------------------
     ! First deallocate aerophys
@@ -143,7 +143,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
       deallocate(aerochem(k)%bk)
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end subroutine deallocate_aerosol
 
@@ -163,7 +163,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
        dustphys, dustchem, dustact, aeroice, dustliq, icall)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -220,7 +220,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     ! Some diagnostic strings
     if (present(icall)) then
@@ -669,7 +669,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
       end if
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine examine_aerosol
 
@@ -678,7 +678,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
   subroutine AbdulRazzakGhan2000(w, p, T, phys, chem, nccn, Smax, active_phys, nccn_active, l_useactive )
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -714,7 +714,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
     l_useactive=.false.
     if (present(active_phys)) l_useactive=active_phys%nact > ccn_tidy .and. l_active_inarg2000
@@ -805,7 +805,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     nccn=.99*nccn ! Don't allow all aerosol to be removed.
     deallocate(s_cr)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
   end subroutine AbdulRazzakGhan2000
 
@@ -813,7 +813,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
       nccn_dactive, dphys, dchem, active_dphys, dnccn, l_useactive )
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -849,7 +849,7 @@ USE vernier_timing_mod, ONLY: LPROF_CASIM
 
 INTEGER(KIND=vik) :: vnr_handle_5
 
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
 
     l_useactive=.false.
     if (present(active_phys)) l_useactive=active_phys%nact > ccn_tidy .and. l_active_inarg2000
@@ -986,7 +986,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     dnccn=.99*dnccn
     deallocate(s_cr)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_5)
  
  end subroutine AbdulRazzakGhan2000_dust
 
@@ -1007,7 +1007,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
   function moment_logn(N, rm, sigma, p)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1026,11 +1026,11 @@ INTEGER(KIND=vik) :: vnr_handle_6
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
 
     moment_logn=N*rm**p*exp(.5*p*p*log(sigma)**2)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_6)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_6)
 
   end function moment_logn
 
@@ -1052,7 +1052,7 @@ INTEGER(KIND=vik) :: vnr_handle_6
   function upperpartial_moment_logn(N, rm, sigma, p, rcrit)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1072,7 +1072,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_7, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_7, ModuleName//':'//RoutineName)
 
 
     if (rcrit==0.0) then
@@ -1082,7 +1082,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
            * .5*casim_erfc((log(rcrit/rm)/log(sigma) - p*log(sigma))/sqrt(2.0))
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_7)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_7)
 
   end function upperpartial_moment_logn
 
@@ -1105,7 +1105,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
   function invert_partial_moment(m, mup, p, rm, sigma)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1124,13 +1124,13 @@ INTEGER(KIND=vik) :: vnr_handle_8
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_8, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_8, ModuleName//':'//RoutineName)
 
 
     x=rm*exp(p*log(sigma)**2+sqrt(2.0)*log(sigma)*erfinv(1.0-2.0*mup/m))
     invert_partial_moment=x
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_8)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_8)
 
   end function invert_partial_moment
 
@@ -1153,7 +1153,7 @@ INTEGER(KIND=vik) :: vnr_handle_8
   function invert_partial_moment_approx(mup, p, rm, sigma)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1174,7 +1174,7 @@ INTEGER(KIND=vik) :: vnr_handle_9
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_9, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_9, ModuleName//':'//RoutineName)
 
     c=-0.1021 ! constant in approximation
     lsig=sqrt(2.0)*log(sigma)
@@ -1191,7 +1191,7 @@ INTEGER(KIND=vik) :: vnr_handle_9
     end if
     invert_partial_moment_approx=x
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_9)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_9)
 
   end function invert_partial_moment_approx
 
@@ -1214,7 +1214,7 @@ INTEGER(KIND=vik) :: vnr_handle_9
   function invert_partial_moment_betterapprox(mup, p, N, rm, sigma)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1236,7 +1236,7 @@ INTEGER(KIND=vik) :: vnr_handle_10
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_10, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_10, ModuleName//':'//RoutineName)
 
     if (mup==0.0) then
       frac=epsilon(x)
@@ -1252,7 +1252,7 @@ INTEGER(KIND=vik) :: vnr_handle_10
       invert_partial_moment_betterapprox=0.0
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_10)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_10)
 
   end function invert_partial_moment_betterapprox
 
@@ -1260,7 +1260,7 @@ INTEGER(KIND=vik) :: vnr_handle_10
   function normal_quantile(p)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -1280,7 +1280,7 @@ INTEGER(KIND=vik) :: vnr_handle_11
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_11, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_11, ModuleName//':'//RoutineName)
 
     c0=2.515517
     c1=0.802853
@@ -1303,7 +1303,7 @@ INTEGER(KIND=vik) :: vnr_handle_11
     end if
     normal_quantile=x
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_11)
 
   end function normal_quantile
 

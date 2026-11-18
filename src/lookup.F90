@@ -31,7 +31,7 @@ contains
   function Gfunc(mu, p1, p2, p3)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -49,7 +49,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     k3=p2-p1
     k1=(p3-p2)/k3
@@ -62,14 +62,14 @@ INTEGER(KIND=vik) :: vnr_handle_1
 
     Gfunc=GammaFunc(1.0+mu+p1)**k1*GammaFunc(1.0+mu+p2)**k2*GammaFunc(1.0+mu+p3)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end function Gfunc
 
   function Hfunc(m1,m2,m3, p1, p2, p3)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -86,7 +86,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     k3=p2-p1
     k1=(p3-p2)/k3
@@ -94,14 +94,14 @@ INTEGER(KIND=vik) :: vnr_handle_2
 
     Hfunc=exp(k1*log(m1)+k2*log(m2)+log(m3))
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end function Hfunc
 
   subroutine set_mu_lookup(p1, p2, p3, ind, val)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -118,7 +118,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     lb=lbound(ind,1)
     ub=ubound(ind,1)
@@ -128,14 +128,14 @@ INTEGER(KIND=vik) :: vnr_handle_3
       val(i)=Gfunc(ind(i), p1, p2, p3)
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine set_mu_lookup
 
   subroutine get_slope_generic(params, n0, lam, mu, mass, num, m3)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -155,7 +155,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
     m1=mass/params%c_x
     ! p1=params%p1
@@ -189,7 +189,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
       call throw_mphys_error(bad_values, ModuleName//':'//RoutineName, std_msg)
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
   end subroutine get_slope_generic
 
@@ -197,7 +197,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
                                m3)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -224,7 +224,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
 
     m1=mass/params%c_x
     p1=params%p1
@@ -313,14 +313,14 @@ INTEGER(KIND=vik) :: vnr_handle_5
       call throw_mphys_error(bad_values, ModuleName//':'//RoutineName, std_msg)
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_5)
 
   end subroutine get_slope_generic_kf
 
   subroutine get_mu(m1, m2, m3, p1, p2, p3, mu, mu_g_o, mu_i_o)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -342,7 +342,7 @@ INTEGER(KIND=vik) :: vnr_handle_6
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
 
     if (present(mu_g_o) .and. present(mu_i_o)) then
       muG=mu_g_o
@@ -374,7 +374,7 @@ INTEGER(KIND=vik) :: vnr_handle_6
       end if
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_6)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_6)
 
   end subroutine get_mu
 
@@ -382,7 +382,7 @@ INTEGER(KIND=vik) :: vnr_handle_6
   subroutine get_lam_n0_3M(m1, m2, m3, params, mu, lam, n0)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -403,7 +403,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_7, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_7, ModuleName//':'//RoutineName)
 
     !    l2 = 1./(p2-p3)
     !
@@ -420,7 +420,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
 
     n0=lam**(p)*m*GammaFunc(1.0+mu)/GammaFunc(1.0+mu+p)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_7)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_7)
 
   end subroutine get_lam_n0_3M
 
@@ -428,7 +428,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
   subroutine get_lam_n0_2M(m1, m2, params, lam, n0, id)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -448,7 +448,7 @@ INTEGER(KIND=vik) :: vnr_handle_8
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_8, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_8, ModuleName//':'//RoutineName)
     
     if (l_kfsm .and. id == 3) then 
        ! field formulation of ice psd, p2 can vary, so need to calc the gamma and inverse  
@@ -468,7 +468,7 @@ INTEGER(KIND=vik) :: vnr_handle_8
        n0=lam**(params%p2)*m2*params%gam_1_mu/params%gam_1_mu_p2
     endif
  
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_8)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_8)
 
   end subroutine get_lam_n0_2M
 
@@ -476,7 +476,7 @@ INTEGER(KIND=vik) :: vnr_handle_8
   subroutine get_lam_n0_1M(m1, params, lam, n0)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -492,7 +492,7 @@ INTEGER(KIND=vik) :: vnr_handle_9
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_9, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_9, ModuleName//':'//RoutineName)
 
     !
     ! Fixing Nx is equivalent to having n0=na*lam**(1+mu)
@@ -504,14 +504,14 @@ INTEGER(KIND=vik) :: vnr_handle_9
 
     lam = (n0*params%gam_1_mu_p1/params%gam_1_mu*m1**(-1.0))**(params%inv_p1)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_9)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_9)
 
   end subroutine get_lam_n0_1M
 
   subroutine get_lam_n0_1M_KF(m1, params, lam, n0, id)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -530,7 +530,7 @@ INTEGER(KIND=vik) :: vnr_handle_10
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_10, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_10, ModuleName//':'//RoutineName)
 
     !
     ! Fixing Nx is equivalent to having n0=na*lam**(1+mu)
@@ -557,7 +557,7 @@ INTEGER(KIND=vik) :: vnr_handle_10
       lam = (n0*params%gam_1_mu_p1/params%gam_1_mu*m1**(-1.0))**(params%inv_p1)
     end if ! id / l_kfsm
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_10)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_10)
 
   end subroutine get_lam_n0_1M_KF
 
@@ -565,7 +565,7 @@ INTEGER(KIND=vik) :: vnr_handle_10
   subroutine get_n0(m, p, mu, lam, n0)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -581,18 +581,18 @@ INTEGER(KIND=vik) :: vnr_handle_11
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_11, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_11, ModuleName//':'//RoutineName)
 
     n0=m/(GammaFunc(1+mu+p)*lam**(-p)/GammaFunc(1+mu))
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_11)
 
   end subroutine get_n0
 
   function moment(n0,lam,mu,p)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -607,11 +607,11 @@ INTEGER(KIND=vik) :: vnr_handle_12
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_12, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_12, ModuleName//':'//RoutineName)
 
     moment=n0*GammaFunc(1+mu+p)*lam**(-p)/GammaFunc(1+mu)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_12)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_12)
 
   end function moment
 end module lookup

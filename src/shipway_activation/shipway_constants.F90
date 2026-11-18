@@ -40,7 +40,7 @@ contains
   real(wp) function Dv_mean(T, alpha_c)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -60,7 +60,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     Dp_big=5.e-6
     Dp_low=min(0.207683*alpha_c**(-0.33048)*1e-6,Dp_big-1e-15)
@@ -69,7 +69,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     B=(2.*Dv/alpha_c)*sqrt(2*pi*Mw/(Ru*T))
     Dv_mean=Dv*(delDp-B*log((Dp_big+B)/(Dp_low+B)))/delDp
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end function Dv_mean
        

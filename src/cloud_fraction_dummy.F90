@@ -14,7 +14,7 @@ SUBROUTINE cloud_frac_casim_mphys(k, pressure, T_in, T_l, rhcrit_lev, &
 USE variable_precision, ONLY: wp
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
 USE parkind1, ONLY: jprb, jpim
 
 IMPLICIT NONE
@@ -29,11 +29,11 @@ INTEGER(KIND=vik) :: vnr_handle_1
 !--------------------------------------------------------------------------
 ! End of header, no more declarations beyond here
 !--------------------------------------------------------------------------
-IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 cloud_mass_new = cloud_mass
 
-IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE cloud_frac_casim_mphys
 

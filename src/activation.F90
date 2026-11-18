@@ -47,7 +47,7 @@ contains
 
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
     use thresholds, only: cfliq_small
     implicit none
@@ -104,7 +104,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     ! Apply RP scheme
     if ( l_rp2_casim ) then
@@ -451,7 +451,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     dnccnd_all=dnccnd_all/dt * cf_liquid
     dnumber_d=dnumber_d/dt * cf_liquid
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine activate
 end module activation

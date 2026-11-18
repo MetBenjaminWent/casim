@@ -153,7 +153,7 @@ contains
        is_in, ie_in, js_in, je_in, ks_in, ke_in, l_tendency)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -188,7 +188,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 
     l_warm_loc=l_warm ! Original setting
@@ -327,14 +327,14 @@ INTEGER(KIND=vik) :: vnr_handle_1
     allocate(columns(nxy_inner))
 
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine initialise_micromain
 
   subroutine finalise_micromain()
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -346,7 +346,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
 !    nxy_inner = 2
 
@@ -400,7 +400,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     deallocate(columns)
 
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end subroutine finalise_micromain
 
@@ -416,7 +416,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
        is_in, ie_in, js_in, je_in)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
     
     use hail_diagnostic_fast_mod, ONLY: diagnose_hail_fast
@@ -520,7 +520,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     if (casim_parent == parent_monc) casim_time = casim_time + dt
     ! (In the KiD model, casim_time is set to variable 'time')
@@ -868,7 +868,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
 !     call save_dg(sum(casdiags % SurfaceRainR(:, :))/nxny*3600.0, 'surface_precip_mmhr', i_dgtime)
 ! #endif
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine shipway_microphysics
 
@@ -888,7 +888,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
 
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
     use casim_parent_mod, only: casim_parent, parent_um
 
@@ -985,7 +985,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
     ! Apply RP scheme
     if ( l_rp2_casim ) then
@@ -2479,14 +2479,14 @@ INTEGER(KIND=vik) :: vnr_handle_4
 
     end do ! ixy_inner
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
   end subroutine microphysics_common
 
   subroutine update_q(qfields_in, qfields, tend, l_aerosol, l_fixneg)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -2506,7 +2506,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
 
     l_fix=.false.
     if (present(l_fixneg)) l_fix=l_fixneg
@@ -2548,7 +2548,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
        end do
     end if
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_5)
 
   end subroutine update_q
 
@@ -2558,7 +2558,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     ! CASIM generic diagnostic fields, ready for use in any model.
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -2579,7 +2579,7 @@ INTEGER(KIND=vik) :: vnr_handle_6
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
 
     ! Based on code from RGS: fill in process rates:
 
@@ -4316,7 +4316,7 @@ INTEGER(KIND=vik) :: vnr_handle_6
 
     end if ! ncall
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_6)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_6)
 
   end subroutine gather_process_diagnostics
 end module micro_main

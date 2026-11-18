@@ -22,7 +22,7 @@ contains
   subroutine set_constants()
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -35,7 +35,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     if (l_abelshipway) then ! override any other fallspeed settings
 
@@ -58,7 +58,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     nucleated_ice_radius = 10.0e-6
     nucleated_ice_mass   =  4.0/3.0*pi*ice_params%density*(nucleated_ice_radius)**3
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine set_constants
 end module derived_constants

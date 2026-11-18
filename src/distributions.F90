@@ -35,7 +35,7 @@ contains
   subroutine initialise_distributions(nz, nspecies)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -51,13 +51,13 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     allocate(dist_lambda(nz,nspecies), dist_mu(nz,nspecies), dist_n0(nz,nspecies), &
              dist_lams(nz, nspecies, 2), m1(nz), m2(nz), m3(nz), m3_old(nz),       &
              a_s(nz), b_s(nz))
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine initialise_distributions
 
@@ -66,7 +66,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
   subroutine query_distributions(ixy_inner, params, qfields, cffields)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
     
     implicit none
@@ -97,7 +97,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     mu_maxes_calc=max_mu_frac*max_mu
 
@@ -352,7 +352,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
       
    end do ! k
 
-   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+   IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
  end subroutine query_distributions
 

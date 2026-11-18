@@ -41,7 +41,7 @@ contains
   subroutine calc_nccn(smax, nccn, nccni_dg)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -61,7 +61,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
     nccn=0.0
     do i=1,nmodes
@@ -74,7 +74,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
       end if
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine calc_nccn
 
@@ -82,7 +82,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
   subroutine calc_LHS(w, T, pressure, alpha_c, entrain_fraction, LHSout)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -112,7 +112,7 @@ INTEGER(KIND=vik) :: vnr_handle_2
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
     Tc = T-273.15
 
@@ -137,14 +137,14 @@ INTEGER(KIND=vik) :: vnr_handle_2
 
     LHSout=LHS
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 
   end subroutine calc_LHS
 
   subroutine set_inputs(s,sp,sm,ds)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -164,7 +164,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_3, ModuleName//':'//RoutineName)
 
     ds=min(0.001, .5*abs(s))
     sp = s + ds
@@ -210,7 +210,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
       end do
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_3)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_3)
 
   end subroutine set_inputs
 
@@ -218,7 +218,7 @@ INTEGER(KIND=vik) :: vnr_handle_3
   subroutine set_inputs_safe(sp,sm)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -236,7 +236,7 @@ INTEGER(KIND=vik) :: vnr_handle_4
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_4, ModuleName//':'//RoutineName)
 
 
     sm=0.0
@@ -249,14 +249,14 @@ INTEGER(KIND=vik) :: vnr_handle_4
       end if
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_4)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_4)
 
   end subroutine set_inputs_safe
 
   subroutine get_extent(s, sp, sm)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -276,7 +276,7 @@ INTEGER(KIND=vik) :: vnr_handle_5
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_5, ModuleName//':'//RoutineName)
 
     sm=0.0
     sp=HUGE(sp)
@@ -287,14 +287,14 @@ INTEGER(KIND=vik) :: vnr_handle_5
       end if
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_5)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_5)
 
   end subroutine get_extent
 
   subroutine calc_RHS(s,RHS)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -316,7 +316,7 @@ INTEGER(KIND=vik) :: vnr_handle_6
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_6, ModuleName//':'//RoutineName)
 
     RHS=0.0
     do i=1,nmodes
@@ -337,14 +337,14 @@ INTEGER(KIND=vik) :: vnr_handle_6
       end if
     end do
 
-   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_6)
+   IF (lprof_casim) CALL vernier_stop(vnr_handle_6)
 
   end subroutine calc_RHS
 
   subroutine calc_KC(T)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -360,7 +360,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_7, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_7, ModuleName//':'//RoutineName)
 
     Ak = 2.*Mw*zetasa/(Ru*T*rhow)
 
@@ -375,7 +375,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
      end if
     end do
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_7)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_7)
 
   end subroutine calc_KC
 
@@ -384,7 +384,7 @@ INTEGER(KIND=vik) :: vnr_handle_7
      smax,nccn,nccni)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -412,10 +412,10 @@ INTEGER(KIND=vik) :: vnr_handle_8
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_8, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_8, ModuleName//':'//RoutineName)
 
     if (.not. any(use_mode)) then
-      IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_8)
+      IF (lprof_casim) CALL vernier_stop(vnr_handle_8)
       return  ! If there's no aerosol present in any of the modes
     end if
 
@@ -466,7 +466,7 @@ INTEGER(KIND=vik) :: vnr_handle_8
 
     call calc_nccn(smax, nccn, nccni)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_8)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_8)
 
     end subroutine solve_nccn_household
 
@@ -475,7 +475,7 @@ INTEGER(KIND=vik) :: vnr_handle_8
      smax,nccn,nccni)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -505,10 +505,10 @@ INTEGER(KIND=vik) :: vnr_handle_9
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_9, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_9, ModuleName//':'//RoutineName)
 
     if (.not. any(use_mode)) then
-      IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_9)
+      IF (lprof_casim) CALL vernier_stop(vnr_handle_9)
       return  ! If there's no aerosol present in any of the modes
     end if
 
@@ -588,14 +588,14 @@ INTEGER(KIND=vik) :: vnr_handle_9
     est_smax_time=1.0/((psi1*w*C1/C2)/smax)
     call calc_nccn(smax, nccn, nccni)
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_9)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_9)
 
   end subroutine solve_nccn_brent
 
   function smax_eq(sa)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -612,13 +612,13 @@ INTEGER(KIND=vik) :: vnr_handle_10
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_10, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_10, ModuleName//':'//RoutineName)
 
     call calc_RHS(sa,RHSout)
 
     smax_eq = RHSout - LHS_hold
 
-   IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_10)
+   IF (lprof_casim) CALL vernier_stop(vnr_handle_10)
 
   end function smax_eq
 
@@ -627,7 +627,7 @@ INTEGER(KIND=vik) :: vnr_handle_10
      iquad, isecant, imidpoint)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     implicit none
@@ -659,7 +659,7 @@ INTEGER(KIND=vik) :: vnr_handle_11
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_11, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_11, ModuleName//':'//RoutineName)
 
     iflag=-999
     ibrent=0
@@ -682,21 +682,21 @@ INTEGER(KIND=vik) :: vnr_handle_11
     if (fa == 0)then
        x=a
        iflag=0
-       IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
+       IF (lprof_casim) CALL vernier_stop(vnr_handle_11)
        return
     end if
 
     if (fb == 0)then
        x=b
        iflag=0
-       IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
+       IF (lprof_casim) CALL vernier_stop(vnr_handle_11)
        return
     end if
 
     if ( fa*fb > 0 )then
        x=-999
        iflag=-1
-       IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
+       IF (lprof_casim) CALL vernier_stop(vnr_handle_11)
        return
     end if
 
@@ -795,7 +795,7 @@ INTEGER(KIND=vik) :: vnr_handle_11
     end if
 
 
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_11)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_11)
     return
   end subroutine brent
 

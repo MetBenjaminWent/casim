@@ -39,7 +39,7 @@ SUBROUTINE include_ship_source(i_start, i_end, j_start, j_end, k_start, k_end, t
                                dAccumSolMass, dAccumSolNumber )
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
 USE parkind1,         ONLY: jprb, jpim
 USE mphys_constants,  ONLY: pi
 
@@ -79,7 +79,7 @@ REAL :: dlat, dlon, dr3, boxsize, rrho
 !--------------------------------------------------------------------------
 ! End of header, no more declarations beyond here
 !--------------------------------------------------------------------------
-IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 dttime = timestep * timestep_number
 
@@ -150,7 +150,7 @@ DO iship = 1, nships
 END DO ! iship
 
 
-IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE include_ship_source
 

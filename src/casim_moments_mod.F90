@@ -30,7 +30,7 @@ USE, INTRINSIC :: ISO_C_BINDING, ONLY:                   &
 
 ! Dr Hook modules
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
 USE parkind1,         ONLY: jprb, jpim
 
 USE vectlib_mod,      ONLY: powr_v, oneover_v, exp_v
@@ -184,7 +184,7 @@ CHARACTER(LEN=*), PARAMETER :: RoutineName='CASIM_MOMENTS'
 
 ! Start the subroutine
 
-IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 one_over_ai = 1.0 / params%c_x
 bi = params%d_x
 
@@ -345,7 +345,7 @@ ELSE
 END IF  ! l_psd_global
 
 
-IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 RETURN
 END SUBROUTINE casim_moments
 !#endif

@@ -25,7 +25,7 @@ contains
   subroutine melting(ixy_inner, dt, nz, params, qfields, cffields, procs, l_sigevap, aeroice, dustact, aerosol_procs)
 
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
     USE parkind1, ONLY: jprb, jpim
 
     USE mphys_switches,       ONLY: i_cfs, i_cfg
@@ -72,7 +72,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
     !--------------------------------------------------------------------------
     ! End of header, no more declarations beyond here
     !--------------------------------------------------------------------------
-    IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+    IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 !intiliase
     dmac=0.0
@@ -247,7 +247,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
        end if
     enddo
     
-    IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+    IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
   end subroutine melting
 end module ice_melting

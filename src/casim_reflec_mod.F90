@@ -56,7 +56,7 @@ USE mphys_parameters, ONLY: cloud_params, rain_params, graupel_params
 
 ! Dr Hook Modules
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
 USE parkind1,         ONLY: jprb, jpim
 
 IMPLICIT NONE
@@ -68,7 +68,7 @@ INTEGER(KIND=vik) :: vnr_handle_1
 
 CHARACTER(LEN=*), PARAMETER :: RoutineName='SETUP_REFLEC_CONSTANTS'
 
-IF (LPROF_CASIM) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
+IF (lprof_casim) CALL vernier_start(vnr_handle_1, ModuleName//':'//RoutineName)
 
 kclw   = kliq / 0.93 * (6.0 / pi / cloud_params%density)**2
 krain  = kliq / 0.93 * (6.0 / pi / rain_params%density)**2
@@ -76,7 +76,7 @@ kgraup = kice / 0.93 * (6.0 / pi / graupel_params%density)**2
 kice_a = kice / 0.93 * (6.0 / pi / s_ice_density)**2
 kice_c = kice / 0.93 * (6.0 / pi / s_ice_density)**2
 
-IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_1)
+IF (lprof_casim) CALL vernier_stop(vnr_handle_1)
 
 END SUBROUTINE setup_reflec_constants
 
@@ -107,7 +107,7 @@ USE distributions,        ONLY: query_distributions, dist_lambda, dist_mu, dist_
 
 ! Dr Hook Modules
 USE vernier_mod, ONLY: vernier_start, vernier_stop, vik
-USE vernier_timing_mod, ONLY: LPROF_CASIM
+USE vernier_timing_mod, ONLY: lprof_casim
 USE parkind1,             ONLY: jprb, jpim
 
 IMPLICIT NONE
@@ -166,7 +166,7 @@ CHARACTER(LEN=*), PARAMETER :: RoutineName='CASIM_REFLEC'
 
 !==============================================================================
 ! Start of calculations
-IF (LPROF_CASIM) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
+IF (lprof_casim) CALL vernier_start(vnr_handle_2, ModuleName//':'//RoutineName)
 
 ! Apply RP scheme
 IF ( l_rp2_casim ) THEN
@@ -293,7 +293,7 @@ DO i = 1,points
 
 END DO
 
-IF (LPROF_CASIM) CALL vernier_stop(vnr_handle_2)
+IF (lprof_casim) CALL vernier_stop(vnr_handle_2)
 RETURN
 END SUBROUTINE casim_reflec
 END MODULE casim_reflec_mod
